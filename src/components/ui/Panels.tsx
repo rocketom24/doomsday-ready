@@ -7,7 +7,8 @@ export function SectionHeading({ title, text, action }: { title: string; text: s
   return (
     <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
       <div>
-        <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">{title}</h2>
+        <span className="slab mb-3" aria-hidden />
+        <h2 className="text-4xl sm:text-5xl">{title}</h2>
         <p className="mt-2 max-w-xl text-ash">{text}</p>
       </div>
       {action}
@@ -18,11 +19,11 @@ export function SectionHeading({ title, text, action }: { title: string; text: s
 // Compact inline figures separated by hairlines, not tiles.
 export function StatRow({ items }: { items: { label: string; value: ReactNode }[] }) {
   return (
-    <dl className="grid grid-cols-2 gap-y-5 border-y border-wine py-5 sm:grid-cols-4">
+    <dl className="grid grid-cols-2 gap-y-5 border-y-2 border-wine py-5 sm:grid-cols-4">
       {items.map((item) => (
         <div key={item.label} className="pr-4 sm:pl-6 sm:first:pl-0 sm:[&:not(:first-child)]:border-l sm:border-wine">
-          <dt className="text-sm text-ash">{item.label}</dt>
-          <dd className="tnum mt-0.5 text-2xl font-semibold tracking-tight">{item.value}</dd>
+          <dt className="font-display text-sm font-semibold tracking-[0.12em] text-ash uppercase">{item.label}</dt>
+          <dd className="font-display tnum mt-0.5 text-4xl font-bold">{item.value}</dd>
         </div>
       ))}
     </dl>

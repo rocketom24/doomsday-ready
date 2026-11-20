@@ -132,7 +132,7 @@ export default function MovieForm({
             {choices.length === 0 && <p className="p-4 text-sm text-ash">No other movies yet.</p>}
             {choices.map((m) => (
               <label key={m.id} className="flex cursor-pointer items-center gap-3 px-4 py-2.5 transition-colors hover:bg-surface">
-                <input type="checkbox" checked={prereqs.includes(m.id)} onChange={() => togglePrereq(m.id)} className="size-4 accent-[#b3262d]" />
+                <input type="checkbox" checked={prereqs.includes(m.id)} onChange={() => togglePrereq(m.id)} className="size-4 accent-[#ed1d24]" />
                 <span className="flex-1">{m.title}</span>
                 <span className="tnum text-sm text-ash">{m.releaseYear}</span>
               </label>

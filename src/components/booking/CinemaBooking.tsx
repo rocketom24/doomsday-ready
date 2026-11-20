@@ -43,6 +43,8 @@ export default function CinemaBooking({
     const n = Number(groupSize);
     if (!groupSize.trim() || !Number.isInteger(n) || n < 1 || n > 10000) {
       setInputError("Enter a whole number from 1 to 10,000.");
+      setResult(null); // don't leave a previous quote showing beside the error
+      setApiError(null);
       return;
     }
     setInputError(null);
@@ -96,7 +98,7 @@ export default function CinemaBooking({
                     }`}
                   >
                     <span className="flex items-start justify-between gap-2">
-                      <span className="leading-snug font-semibold">{c.name}</span>
+                      <span className="font-display text-xl leading-tight font-bold tracking-wide uppercase">{c.name}</span>
                       {on && <Check size={16} aria-hidden className="mt-0.5 shrink-0 text-bone" />}
                     </span>
                     <span className="mt-3 block text-sm text-ash">Bundles of</span>
@@ -194,7 +196,7 @@ function Possible({ result }: { result: BookingResult }) {
 
       <div className="mt-4 grid gap-8 md:grid-cols-[auto_1fr] md:gap-14">
         <div>
-          <p className="tnum text-7xl leading-none font-semibold tracking-tight sm:text-8xl">{bundles}</p>
+          <p className="font-display tnum text-8xl leading-none font-bold text-accent sm:text-9xl">{bundles}</p>
           <p className="mt-2 text-ash">{bundles === 1 ? "bundle" : "bundles"}, the minimum</p>
         </div>
 

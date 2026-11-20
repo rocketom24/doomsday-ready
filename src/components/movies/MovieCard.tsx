@@ -19,7 +19,7 @@ export default function MovieCard({
   const count = movie.prerequisites.length;
 
   return (
-    <li className="group flex flex-col">
+    <li className="group flex flex-col border-t-[3px] border-t-transparent pt-0 transition-colors hover:border-t-accent">
       <div className="relative transition-transform duration-200 group-hover:-translate-y-0.5">
         <Poster title={movie.title} className="w-full transition-colors duration-200 group-hover:border-ash" />
         {movie.watched && (
@@ -30,7 +30,7 @@ export default function MovieCard({
       </div>
 
       <div className="mt-3 flex-1">
-        <h3 className="leading-snug font-semibold">{movie.title}</h3>
+        <h3 className="text-xl leading-tight">{movie.title}</h3>
         <p className="tnum mt-1 flex items-center gap-3 text-sm text-ash">
           <span>{movie.releaseYear}</span>
           <span className="inline-flex items-center gap-1">

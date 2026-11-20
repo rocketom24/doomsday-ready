@@ -22,7 +22,7 @@ export default function Nav({ tab, onChange }: { tab: Tab; onChange: (t: Tab) =>
               type="button"
               aria-current={active ? "page" : undefined}
               onClick={() => onChange(item.id)}
-              className={`relative px-1 py-3.5 text-center text-[0.8125rem] font-medium transition-colors duration-150 sm:px-4 sm:text-sm ${
+              className={`relative px-1 py-3.5 text-center font-display text-[0.9rem] font-semibold tracking-[0.1em] uppercase transition-colors duration-150 sm:px-5 sm:text-base ${
                 active ? "text-bone" : "text-ash hover:text-bone"
               }`}
             >
@@ -31,7 +31,7 @@ export default function Nav({ tab, onChange }: { tab: Tab; onChange: (t: Tab) =>
                 <motion.span
                   layoutId="nav-indicator"
                   transition={{ duration: 0.2, ease: "easeOut" }}
-                  className="absolute inset-x-0 bottom-0 h-[3px] bg-accent"
+                  className="absolute inset-x-0 bottom-0 h-[4px] bg-accent"
                 />
               )}
             </button>

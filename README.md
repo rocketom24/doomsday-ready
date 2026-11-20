@@ -9,10 +9,12 @@ Doomsday Ready helps MCU fans get ready for Avengers: Doomsday. The idea is to m
 - Prisma 6 with SQLite
 - Zod
 
-## Status
+## Features
 
-- Phase 1 (setup and database): done.
-- Phase 2 (backend APIs and algorithms): done. No UI yet; the homepage is still the default Next.js page.
+- Movies: create, list, edit (title, year, runtime, prerequisites), watched toggle, search and All/Watched/Unwatched filters.
+- Rewatch protocol: pick a movie and get every transitive prerequisite once, in a valid watch order, with progress and remaining runtime.
+- Cinema booking: cinemas sell seats in fixed bundle sizes; the app finds the fewest bundles that fill a group exactly (or says it is impossible).
+- Local poster artwork in `public/posters` with a plain title-card fallback.
 
 ## Setup
 
@@ -38,7 +40,7 @@ npm run dev          # http://localhost:3000
 | `npm run db:migrate` | Run migrations (`prisma migrate dev`) |
 | `npm run db:seed` | Seed movies and cinemas |
 
-## API (Phase 2)
+## API
 
 All errors use `{ "error": { "code": "...", "message": "..." } }`.
 
@@ -101,13 +103,15 @@ Booking quote (`GET /api/cinemas/2/booking?groupSize=11`). An impossible size st
 ### Testing
 
 ```bash
-npm test        # 17 algorithm tests (booking DP, rewatch order, cycle detection)
+npm test        # 54 automated tests: tests/algorithms.test.ts (31) + tests/api.test.ts (23)
 npm run lint
 npm run build
 ```
 
-The HTTP endpoints were checked by hand against a separate throwaway SQLite file (`DATABASE_URL=file:./test.db`), not `dev.db`.
+- `algorithms.test.ts`: booking DP (cross-checked against an independent brute force for every group size up to 150, greedy-failure cases, impossible sizes, 1 and 10000, bundle sizes near 500) and rewatch order / cycle detection (chains, diamonds, shared dependencies, watched counting, runtime, corrupted cycles).
+- `api.test.ts`: calls the real route handlers for movies, rewatch order, cinemas and booking (validation, duplicates, 404s, 409 cycles, rejected cycle leaves data unchanged). It creates a throwaway SQLite file in the OS temp dir from the migrations and deletes it afterwards; `prisma/dev.db` is never touched.
+- The UI was checked manually in a browser (filters, forms, cycle error, optimistic rollback, rewatch plan, booking, 320-1280px widths). There are no automated browser tests.
 
 ## AI usage disclosure
 
-I used Claude Code (Anthropic) to help write the Phase 1 setup and the Phase 2 code (API routes, algorithms, tests, this README). I reviewed and ran the code, and the traversal, cycle detection and dynamic programming are hand-written with no graph or optimization libraries.
+I used Claude Code (Anthropic) throughout this project: project setup, API routes, algorithms, the frontend, the test suites and this README. I reviewed and ran the code and tests. The traversal, cycle detection and dynamic programming are hand-written with no graph or optimization libraries.

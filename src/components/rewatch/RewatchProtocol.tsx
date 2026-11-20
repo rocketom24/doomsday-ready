@@ -198,7 +198,7 @@ function Timeline({
         </span>
         <p>
           <span className="block text-sm text-ash">{ready ? "You are ready for" : "Destination"}</span>
-          <span className="text-lg font-semibold tracking-tight">{plan.target.title}</span>
+          <span className="font-display text-3xl font-bold tracking-wide uppercase">{plan.target.title}</span>
         </p>
       </li>
     </ol>

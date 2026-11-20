@@ -3,18 +3,28 @@
 @theme inline {
   --color-ink: #0b0808;
   --color-surface: #140c0d;
-  --color-oxblood: #280f14;
-  --color-wine: #4d1a21;
-  --color-maroon: #6b1d24;
+  --color-oxblood: #2a0b0e;
+  --color-wine: #5c141a;
+  --color-maroon: #8a1219;
   --color-card: #1a1011;
   --color-line: #331c20;
-  --color-line-strong: #4d2d31;
+  --color-line-strong: #5a2a2e;
   --color-bone: #ece8e1;
   --color-ash: #9a9a9a;
-  --color-accent: #b3262d;
-  --color-accent-hover: #c42d35;
-  --color-accent-text: #e07a7f;
+  --color-accent: #ed1d24;
+  --color-accent-hover: #ff3038;
+  --color-accent-text: #ff5c61;
   --font-sans: var(--font-inter);
+  --font-display: var(--font-display);
+  /* sharp edges everywhere */
+  --radius-xs: 0;
+  --radius-sm: 0;
+  --radius-md: 0;
+  --radius-lg: 0;
+  --radius-xl: 0;
+  --radius-2xl: 0;
+  --radius-3xl: 0;
+  --radius: 0;
 }
 
 body {
@@ -29,6 +39,17 @@ body {
   outline-offset: 2px;
 }
 
+h1, h2, h3 {
+  font-family: var(--font-display), Impact, "Arial Narrow", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  font-weight: 700;
+}
+
+h1 {
+  letter-spacing: 0;
+}
+
 ::selection {
   background: var(--color-accent);
   color: var(--color-bone);
@@ -40,17 +61,29 @@ body {
 
 @layer components {
   .btn {
-    @apply inline-flex items-center justify-center gap-2 rounded px-4 py-2.5 text-sm font-medium transition-colors duration-150 disabled:cursor-not-allowed disabled:opacity-40;
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2.5 font-display text-sm font-semibold tracking-[0.08em] uppercase transition-colors duration-150 disabled:cursor-not-allowed disabled:opacity-40;
   }
   .btn-primary {
-    @apply bg-accent text-bone enabled:hover:bg-accent-hover;
+    @apply border border-accent bg-accent text-white enabled:hover:border-accent-hover enabled:hover:bg-accent-hover;
   }
   .btn-secondary {
     @apply border border-line-strong text-bone enabled:hover:border-ash enabled:hover:bg-card;
   }
   .field {
-    @apply w-full rounded border border-line-strong bg-card px-3 py-2.5 text-bone outline-none transition-colors duration-150 placeholder:text-ash/70 focus:border-bone focus:ring-1 focus:ring-bone;
+    @apply w-full border border-line-strong bg-card px-3 py-2.5 text-bone outline-none transition-colors duration-150 placeholder:text-ash/70 focus:border-accent focus:ring-1 focus:ring-accent;
   }
+}
+
+.font-display {
+  font-family: var(--font-display), Impact, "Arial Narrow", sans-serif;
+}
+
+/* hard-edged red slab used as a section/header marker */
+.slab {
+  display: block;
+  width: 3.5rem;
+  height: 6px;
+  background: var(--color-accent);
 }
 
 @media (prefers-reduced-motion: reduce) {
