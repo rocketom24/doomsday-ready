@@ -11,12 +11,14 @@ export default function MovieCard({
   busy,
   onToggle,
   onEdit,
+  onOpen,
   index = 0,
 }: {
   movie: Movie;
   busy: boolean;
   onToggle: () => void;
   onEdit: () => void;
+  onOpen: () => void;
   index?: number;
 }) {
   const count = movie.prerequisites.length;
@@ -29,16 +31,29 @@ export default function MovieCard({
       className="group flex flex-col border-t-[3px] border-t-transparent pt-0 transition-colors duration-300 hover:border-t-accent"
     >
       <motion.div className="relative" whileHover={{ y: -6 }} transition={{ type: "spring", stiffness: 300, damping: 22 }}>
-        <Poster title={movie.title} className="w-full transition-colors duration-200 group-hover:border-ash" />
+        <button
+          type="button"
+          onClick={onOpen}
+          aria-label={`View details for ${movie.title}`}
+          className="block w-full cursor-pointer text-left"
+        >
+          <motion.div layoutId={`poster-${movie.id}`} transition={{ type: "spring", stiffness: 320, damping: 34 }}>
+            <Poster title={movie.title} className="w-full transition-colors duration-200 group-hover:border-ash" />
+          </motion.div>
+        </button>
         {movie.watched && (
-          <span className="absolute top-2 left-2 grid size-6 place-items-center rounded-sm bg-accent text-bone" title="Watched">
+          <span className="pointer-events-none absolute top-2 left-2 grid size-6 place-items-center rounded-sm bg-accent text-bone" title="Watched">
             <Check size={14} aria-label="Watched" />
           </span>
         )}
       </motion.div>
 
       <div className="mt-3 flex-1">
-        <h3 className="text-xl leading-tight">{movie.title}</h3>
+        <h3 className="text-xl leading-tight">
+          <button type="button" onClick={onOpen} className="cursor-pointer text-left transition-colors hover:text-ash">
+            {movie.title}
+          </button>
+        </h3>
         <p className="tnum mt-1 flex items-center gap-3 text-sm text-ash">
           <span>{movie.releaseYear}</span>
           <span className="inline-flex items-center gap-1">

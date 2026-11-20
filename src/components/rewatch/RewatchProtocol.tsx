@@ -12,15 +12,17 @@ import type { Movie, RewatchPlan } from "@/lib/types";
 export default function RewatchProtocol({
   movies,
   version,
+  initialTarget = null,
   pending,
   onToggleWatched,
 }: {
   movies: Movie[];
   version: number;
+  initialTarget?: number | null;
   pending: number[];
   onToggleWatched: (id: number, watched: boolean) => void;
 }) {
-  const [picked, setPicked] = useState<number | null>(null);
+  const [picked, setPicked] = useState<number | null>(initialTarget);
   const [plan, setPlan] = useState<RewatchPlan | null>(null);
   const [failure, setFailure] = useState<{ id: number; message: string } | null>(null);
   const [retry, setRetry] = useState(0);

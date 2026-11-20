@@ -7,6 +7,7 @@ import { EmptyBlock, PrimaryButton, SectionHeading, StatRow } from "@/components
 import { formatRuntime } from "@/lib/client";
 import type { Movie } from "@/lib/types";
 import MovieCard from "./MovieCard";
+import MovieDetail from "./MovieDetail";
 import MovieForm from "./MovieForm";
 
 type Filter = "all" | "watched" | "unwatched";
@@ -21,19 +22,24 @@ export default function MovieDatabase({
   pending,
   onToggleWatched,
   onSaved,
+  onViewRewatch,
   notify,
 }: {
   movies: Movie[];
   pending: number[];
   onToggleWatched: (id: number, watched: boolean) => void;
   onSaved: () => Promise<void>;
+  onViewRewatch: (id: number) => void;
   notify: (tone: "success" | "error", text: string) => void;
 }) {
   const [filter, setFilter] = useState<Filter>("all");
   const [query, setQuery] = useState("");
   // undefined = closed, null = adding, Movie = editing
+  const [openId, setOpenId] = useState<number | null>(null);
   const [editing, setEditing] = useState<Movie | null | undefined>(undefined);
 
+  // Looked up live so the modal always reflects the optimistic watched state.
+  const opened = movies.find((m) => m.id === openId);
   const watched = movies.filter((m) => m.watched).length;
   const totalRuntime = movies.reduce((sum, m) => sum + m.runtime, 0);
   const q = query.trim().toLowerCase();
@@ -115,10 +121,24 @@ export default function MovieDatabase({
               busy={pending.includes(m.id)}
               onToggle={() => onToggleWatched(m.id, !m.watched)}
               onEdit={() => setEditing(m)}
+              onOpen={() => setOpenId(m.id)}
             />
           ))}
         </ul>
       )}
+
+      <AnimatePresence>
+        {opened && (
+          <MovieDetail
+            key={opened.id}
+            movie={opened}
+            busy={pending.includes(opened.id)}
+            onToggle={() => onToggleWatched(opened.id, !opened.watched)}
+            onViewRewatch={() => onViewRewatch(opened.id)}
+            onClose={() => setOpenId(null)}
+          />
+        )}
+      </AnimatePresence>
 
       <AnimatePresence>
         {editing !== undefined && (

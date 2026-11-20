@@ -20,6 +20,7 @@ export default function DoomsdayApp() {
   const [reloadKey, setReloadKey] = useState(0);
   // Bumped after every successful movie change so the rewatch plan knows to refetch.
   const [moviesVersion, setMoviesVersion] = useState(0);
+  const [rewatchTarget, setRewatchTarget] = useState<number | null>(null);
   const [pending, setPending] = useState<number[]>([]);
   const [toasts, setToasts] = useState<ToastData[]>([]);
   const toastId = useRef(0);
@@ -105,6 +106,11 @@ export default function DoomsdayApp() {
                   pending={pending}
                   onToggleWatched={toggleWatched}
                   onSaved={refreshMovies}
+                  onViewRewatch={(id) => {
+                    setRewatchTarget(id);
+                    setTab("rewatch");
+                    window.scrollTo({ top: 0 });
+                  }}
                   notify={notify}
                 />
               )}
@@ -112,6 +118,7 @@ export default function DoomsdayApp() {
                 <RewatchProtocol
                   movies={movies}
                   version={moviesVersion}
+                  initialTarget={rewatchTarget}
                   pending={pending}
                   onToggleWatched={toggleWatched}
                 />
