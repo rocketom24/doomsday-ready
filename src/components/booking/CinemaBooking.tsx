@@ -88,12 +88,15 @@ export default function CinemaBooking({
               const on = c.id === selectedId;
               return (
                 <li key={c.id}>
-                  <button
+                  <motion.button
                     type="button"
                     role="radio"
+                    whileHover={{ y: -4 }}
+                    whileTap={{ scale: 0.97 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 26 }}
                     aria-checked={on}
                     onClick={() => choose(c.id)}
-                    className={`relative block h-full w-full rounded border p-4 text-left transition-colors duration-150 ${
+                    className={`relative flex h-full w-full flex-col justify-start rounded border p-4 text-left transition-colors duration-150 ${
                       on ? "border-accent bg-wine" : "border-line bg-surface hover:border-line-strong hover:bg-card"
                     }`}
                   >
@@ -109,7 +112,7 @@ export default function CinemaBooking({
                         </span>
                       ))}
                     </span>
-                  </button>
+                  </motion.button>
                 </li>
               );
             })}
@@ -196,13 +199,26 @@ function Possible({ result }: { result: BookingResult }) {
 
       <div className="mt-4 grid gap-8 md:grid-cols-[auto_1fr] md:gap-14">
         <div>
-          <p className="font-display tnum text-8xl leading-none font-bold text-accent sm:text-9xl">{bundles}</p>
+          <motion.p
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ type: "spring", stiffness: 260, damping: 16 }}
+            className="font-display tnum origin-left text-8xl leading-none font-bold text-accent sm:text-9xl"
+          >
+            {bundles}
+          </motion.p>
           <p className="mt-2 text-ash">{bundles === 1 ? "bundle" : "bundles"}, the minimum</p>
         </div>
 
         <ul aria-label="Bundle breakdown" className="divide-y divide-line self-end border-y border-line">
-          {result.bundles.map((b) => (
-            <li key={b.size} className="py-3">
+          {result.bundles.map((b, i) => (
+            <motion.li
+              key={b.size}
+              initial={{ opacity: 0, x: 16 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.35, delay: 0.15 + i * 0.1 }}
+              className="py-3"
+            >
               <div className="flex items-baseline justify-between gap-4">
                 <p>
                   <span className="tnum text-xl font-semibold">{b.count}</span>
@@ -212,9 +228,14 @@ function Possible({ result }: { result: BookingResult }) {
                 <p className="tnum text-sm text-ash">{b.size * b.count} seats</p>
               </div>
               <div className="mt-2 h-1 rounded-sm bg-line">
-                <div className="h-full rounded-sm bg-accent" style={{ width: `${(b.size * b.count * 100) / result.groupSize}%` }} />
+                <motion.div
+                  className="h-full rounded-sm bg-accent"
+                  initial={{ width: 0 }}
+                  animate={{ width: `${(b.size * b.count * 100) / result.groupSize}%` }}
+                  transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.3 + i * 0.1 }}
+                />
               </div>
-            </li>
+            </motion.li>
           ))}
         </ul>
       </div>

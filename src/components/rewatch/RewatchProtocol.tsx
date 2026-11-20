@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "motion/react";
 import { Check, Film } from "lucide-react";
 import { useEffect, useState } from "react";
 import Poster from "@/components/ui/Poster";
@@ -140,7 +141,13 @@ function Timeline({
   return (
     <ol className="mt-8">
       {plan.movies.map((m, i) => (
-        <li key={m.id} className="relative grid grid-cols-[2rem_1fr] gap-x-4 pb-3 sm:gap-x-5">
+        <motion.li
+          key={m.id}
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1], delay: Math.min(i, 10) * 0.07 }}
+          className="relative grid grid-cols-[2rem_1fr] gap-x-4 pb-3 sm:gap-x-5"
+        >
           {/* Thin spine to the next step; it turns red once this step is watched. */}
           <span aria-hidden className="absolute top-8 bottom-0 left-4 w-px -translate-x-1/2 bg-line-strong" />
           <span
@@ -156,7 +163,7 @@ function Timeline({
           </span>
 
           <div
-            className={`flex items-center gap-4 rounded border p-3 transition-colors duration-200 ${
+            className={`flex items-center gap-4 rounded border p-3 transition-[colors,transform] duration-200 hover:translate-x-1 ${
               m.watched ? "border-wine bg-oxblood" : "border-line-strong bg-card"
             }`}
           >
@@ -185,7 +192,7 @@ function Timeline({
               )}
             </button>
           </div>
-        </li>
+        </motion.li>
       ))}
 
       <li className="grid grid-cols-[2rem_1fr] items-center gap-x-4 sm:gap-x-5">

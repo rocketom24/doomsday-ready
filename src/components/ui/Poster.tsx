@@ -22,7 +22,7 @@ export default function Poster({ title, className = "", priority = false }: { ti
 
   return (
     <div className={frame}>
-      <Image src={src} alt={`${title} poster`} fill priority={priority} unoptimized sizes="(min-width: 1024px) 270px, 45vw" className="object-cover" onError={() => setFailed(true)} />
+      <Image src={src} alt={`${title} poster`} fill priority={priority} unoptimized sizes="(min-width: 1024px) 288px, 45vw" className="object-cover transition-transform duration-500 ease-out group-hover:scale-105" onError={() => setFailed(true)} />
     </div>
   );
 }

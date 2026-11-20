@@ -1,19 +1,20 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-ink: #0b0808;
-  --color-surface: #140c0d;
-  --color-oxblood: #2a0b0e;
-  --color-wine: #5c141a;
-  --color-maroon: #8a1219;
-  --color-card: #1a1011;
-  --color-line: #331c20;
-  --color-line-strong: #5a2a2e;
-  --color-bone: #ece8e1;
-  --color-ash: #9a9a9a;
-  --color-accent: #ed1d24;
-  --color-accent-hover: #ff3038;
-  --color-accent-text: #ff5c61;
+  --color-ink: #000000;
+  --color-surface: #0a0a0a;
+  --color-oxblood: #0a0a0a;
+  --color-wine: #2b0002;
+  --color-maroon: #c10005;
+  --color-card: #111111;
+  --color-line: #262626;
+  --color-line-strong: #404040;
+  --color-bone: #ffffff;
+  --color-blood: #d90005;
+  --color-ash: #707070;
+  --color-accent: #f40006;
+  --color-accent-hover: #c10005;
+  --color-accent-text: #f40006;
   --font-sans: var(--font-inter);
   --font-display: var(--font-display);
   /* sharp edges everywhere */

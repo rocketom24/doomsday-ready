@@ -107,9 +107,10 @@ export default function MovieDatabase({
         </div>
       ) : (
         <ul className="mt-8 grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-3 lg:grid-cols-4 lg:gap-x-6">
-          {visible.map((m) => (
+          {visible.map((m, i) => (
             <MovieCard
               key={m.id}
+              index={i}
               movie={m}
               busy={pending.includes(m.id)}
               onToggle={() => onToggleWatched(m.id, !m.watched)}

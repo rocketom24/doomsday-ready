@@ -72,7 +72,7 @@ Rewatch order response (`remainingRuntime` counts only unwatched prerequisites; 
 Booking quote (`GET /api/cinemas/2/booking?groupSize=11`). An impossible size still returns 200 with `"possible": false`, `totalBundles`/`totalSeats` `null` and `bundles: []`:
 
 ```json
-{ "cinema": { "id": 2, "name": "Grand Screen Cinema", "bundleSizes": [2, 5] },
+{ "cinema": { "id": 2, "name": "Star Cineplex Jamuna Future Park", "bundleSizes": [2, 5] },
   "groupSize": 11, "possible": true, "totalBundles": 4, "totalSeats": 11,
   "bundles": [{ "size": 5, "count": 1 }, { "size": 2, "count": 3 }] }
 ```

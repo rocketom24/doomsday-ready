@@ -15,10 +15,10 @@ const movies = [
 ];
 
 const cinemas = [
-  { name: "Starlight Cinemas", bundleSizes: [1, 3, 4] },
-  { name: "Grand Screen Cinema", bundleSizes: [2, 5] },
-  { name: "Nova Multiplex", bundleSizes: [6, 9, 20] },
-  { name: "Horizon Cinema", bundleSizes: [4, 6] },
+  { name: "Star Cineplex Bashundhara City Complex", bundleSizes: [1, 3, 4] },
+  { name: "Star Cineplex Jamuna Future Park", bundleSizes: [2, 5] },
+  { name: "Star Cineplex Centerpoint", bundleSizes: [6, 9, 20] },
+  { name: "Star Cineplex SKS Tower", bundleSizes: [4, 6] },
 ];
 
 async function main() {

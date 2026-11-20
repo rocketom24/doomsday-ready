@@ -1,13 +1,20 @@
 "use client";
 
 import { CircleAlert } from "lucide-react";
-import type { ButtonHTMLAttributes, ReactNode } from "react";
+import { motion } from "motion/react";
+import type { ComponentProps, ReactNode } from "react";
 
 export function SectionHeading({ title, text, action }: { title: string; text: string; action?: ReactNode }) {
   return (
     <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
       <div>
-        <span className="slab mb-3" aria-hidden />
+        <motion.span
+          className="slab mb-3 origin-left"
+          aria-hidden
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+        />
         <h2 className="text-4xl sm:text-5xl">{title}</h2>
         <p className="mt-2 max-w-xl text-ash">{text}</p>
       </div>
@@ -30,14 +37,17 @@ export function StatRow({ items }: { items: { label: string; value: ReactNode }[
   );
 }
 
-type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
+type ButtonProps = ComponentProps<typeof motion.button>;
+
+// Shared press/hover feel for every primary and secondary button.
+const press = { whileHover: { y: -2 }, whileTap: { scale: 0.96, y: 0 }, transition: { type: "spring", stiffness: 500, damping: 30 } } as const;
 
 export function PrimaryButton({ className = "", ...props }: ButtonProps) {
-  return <button {...props} className={`btn btn-primary ${className}`} />;
+  return <motion.button {...press} {...props} className={`btn btn-primary ${className}`} />;
 }
 
 export function GhostButton({ className = "", ...props }: ButtonProps) {
-  return <button {...props} className={`btn btn-secondary ${className}`} />;
+  return <motion.button {...press} {...props} className={`btn btn-secondary ${className}`} />;
 }
 
 export function Spinner() {

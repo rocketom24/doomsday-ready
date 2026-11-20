@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "motion/react";
 import { Check, Clock, Pencil } from "lucide-react";
 import Poster from "@/components/ui/Poster";
 import { formatRuntime } from "@/lib/client";
@@ -10,24 +11,31 @@ export default function MovieCard({
   busy,
   onToggle,
   onEdit,
+  index = 0,
 }: {
   movie: Movie;
   busy: boolean;
   onToggle: () => void;
   onEdit: () => void;
+  index?: number;
 }) {
   const count = movie.prerequisites.length;
 
   return (
-    <li className="group flex flex-col border-t-[3px] border-t-transparent pt-0 transition-colors hover:border-t-accent">
-      <div className="relative transition-transform duration-200 group-hover:-translate-y-0.5">
+    <motion.li
+      initial={{ opacity: 0, y: 24 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1], delay: Math.min(index, 8) * 0.06 }}
+      className="group flex flex-col border-t-[3px] border-t-transparent pt-0 transition-colors duration-300 hover:border-t-accent"
+    >
+      <motion.div className="relative" whileHover={{ y: -6 }} transition={{ type: "spring", stiffness: 300, damping: 22 }}>
         <Poster title={movie.title} className="w-full transition-colors duration-200 group-hover:border-ash" />
         {movie.watched && (
           <span className="absolute top-2 left-2 grid size-6 place-items-center rounded-sm bg-accent text-bone" title="Watched">
             <Check size={14} aria-label="Watched" />
           </span>
         )}
-      </div>
+      </motion.div>
 
       <div className="mt-3 flex-1">
         <h3 className="text-xl leading-tight">{movie.title}</h3>
@@ -72,6 +80,6 @@ export default function MovieCard({
           <Pencil size={15} aria-hidden />
         </button>
       </div>
-    </li>
+    </motion.li>
   );
 }

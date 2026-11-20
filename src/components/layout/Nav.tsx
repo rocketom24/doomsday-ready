@@ -17,8 +17,9 @@ export default function Nav({ tab, onChange }: { tab: Tab; onChange: (t: Tab) =>
         {items.map((item) => {
           const active = item.id === tab;
           return (
-            <button
+            <motion.button
               key={item.id}
+              whileTap={{ scale: 0.95 }}
               type="button"
               aria-current={active ? "page" : undefined}
               onClick={() => onChange(item.id)}
@@ -34,7 +35,7 @@ export default function Nav({ tab, onChange }: { tab: Tab; onChange: (t: Tab) =>
                   className="absolute inset-x-0 bottom-0 h-[4px] bg-accent"
                 />
               )}
-            </button>
+            </motion.button>
           );
         })}
       </div>
