@@ -1,26 +1,60 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-ink: #0b0808;
+  --color-surface: #140c0d;
+  --color-oxblood: #280f14;
+  --color-wine: #4d1a21;
+  --color-maroon: #6b1d24;
+  --color-card: #1a1011;
+  --color-line: #331c20;
+  --color-line-strong: #4d2d31;
+  --color-bone: #ece8e1;
+  --color-ash: #9a9a9a;
+  --color-accent: #b3262d;
+  --color-accent-hover: #c42d35;
+  --color-accent-text: #e07a7f;
+  --font-sans: var(--font-inter);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-ink);
+  color: var(--color-bone);
+  font-family: var(--font-inter), system-ui, "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.5;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-bone);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-bone);
+}
+
+.tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded px-4 py-2.5 text-sm font-medium transition-colors duration-150 disabled:cursor-not-allowed disabled:opacity-40;
+  }
+  .btn-primary {
+    @apply bg-accent text-bone enabled:hover:bg-accent-hover;
+  }
+  .btn-secondary {
+    @apply border border-line-strong text-bone enabled:hover:border-ash enabled:hover:bg-card;
+  }
+  .field {
+    @apply w-full rounded border border-line-strong bg-card px-3 py-2.5 text-bone outline-none transition-colors duration-150 placeholder:text-ash/70 focus:border-bone focus:ring-1 focus:ring-bone;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition-duration: 0.01ms !important;
+  }
 }
